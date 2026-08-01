@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Examora Navy #1E3A5F → HSL(214, 51%, 24%) */
+    --primary: 214 51% 24%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 214 51% 24%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 92%;
+    --accent-foreground: 214 51% 24%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 214 51% 24%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222 47% 7%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 10%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222 47% 10%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 214 70% 55%;
+    --primary-foreground: 222 47% 7%;
+    --secondary: 217 33% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 217 33% 22%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 217 33% 20%;
+    --input: 217 33% 20%;
+    --ring: 214 70% 55%;
+  }
+
+  * { @apply border-border; }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  h1, h2, h3, h4, h5, h6 { @apply font-heading; }
+}
+
+@layer components {
+  /* Exam session grid - question navigation pills */
+  .question-nav-grid {
+    @apply grid gap-1.5;
+    grid-template-columns: repeat(auto-fill, minmax(2.5rem, 1fr));
+  }
+
+  .question-pill {
+    @apply h-10 w-10 rounded-lg text-sm font-mono font-medium
+           flex items-center justify-center
+           border-2 transition-all duration-150 cursor-pointer select-none;
+  }
+
+  .question-pill--unanswered {
+    @apply border-border bg-card text-muted-foreground hover:border-primary/60 hover:text-primary;
+  }
+
+  .question-pill--answered {
+    @apply border-emerald-500 bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300;
+  }
+
+  .question-pill--doubtful {
+    @apply border-amber-500 bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300;
+  }
+
+  .question-pill--current {
+    @apply border-primary bg-primary text-primary-foreground shadow-md scale-110;
+  }
+
+  /* Timer radial pulse */
+  .timer-danger { @apply animate-timer-pulse text-red-500; }
+  .timer-warning { @apply text-amber-500; }
+  .timer-ok { @apply text-emerald-600; }
+
+  /* Stat card */
+  .stat-card {
+    @apply rounded-xl border bg-card p-5 shadow-sm transition-shadow hover:shadow-md;
+  }
+
+  /* Page header */
+  .page-header {
+    @apply flex items-center justify-between mb-6;
+  }
+
+  .page-title {
+    @apply text-2xl font-heading font-semibold text-foreground;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { @apply bg-transparent; }
+::-webkit-scrollbar-thumb { @apply bg-border rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/40; }
