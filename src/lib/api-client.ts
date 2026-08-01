@@ -2,7 +2,7 @@ import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios';
 import { useAuthStore } from '@/stores/auth.store';
 
 export const api = axios.create({
-  baseURL: '/api/v1',
+  baseURL: import.meta.env.VITE_API_URL || '/api/v1',
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' },
   timeout: 30_000,
@@ -53,7 +53,7 @@ api.interceptors.response.use(
     isRefreshing = true;
 
     try {
-      const { data } = await axios.post('/api/v1/auth/refresh', {}, { withCredentials: true });
+      const { data } = await axios.post(`${import.meta.env.VITE_API_URL || '/api/v1'}/auth/refresh`, {}, { withCredentials: true });
       const newToken: string = data.data.accessToken;
       useAuthStore.getState().setAccessToken(newToken);
       processQueue(null, newToken);
